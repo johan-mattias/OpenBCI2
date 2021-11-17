@@ -19,14 +19,15 @@ class Graph:
         self.num_points = self.window_size * self.sampling_rate
 
         self.app = QtGui.QApplication([])
-        self.win = pg.GraphicsWindow(title='BrainFlow Plot',size=(800, 600))
+        self.win = pg.GraphicsLayoutWidget(title='BrainFlow Plot',size=(800, 600))
 
         self._init_timeseries()
 
         timer = QtCore.QTimer()
         timer.timeout.connect(self.update)
         timer.start(self.update_speed_ms)
-        QtGui.QApplication.instance().exec_()
+        self.win.show()
+        self.app.exec()
 
 
     def _init_timeseries(self):

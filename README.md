@@ -1,0 +1,1 @@
+python get_data_from_board.py --board-id 0 --serial-port /dev/cu.usbserial-DM01MSWZ

@@ -19,7 +19,7 @@ target.dy = 3
 
 app.concentration = 0
 
-focus = Label(app.concentration, 20, 20)
+focus = Label(app.concentration, 200, 20, fill='white', size=28)
 
 def onStep():
     if target.left < 0 or target.right > 400:
@@ -30,7 +30,7 @@ def onStep():
     target.centerX += target.dx
     target.centerY += target.dy
 
-    focus.value = app.concentration
+    focus.value = int(app.concentration*100)
 
     player.d = 0
 
@@ -108,13 +108,14 @@ def main():
         print(feature_vector)
 
         # calc concentration
+        '''
         concentration_params = BrainFlowModelParams(BrainFlowMetrics.CONCENTRATION.value, BrainFlowClassifiers.KNN.value)
         concentration = MLModel(concentration_params)
         concentration.prepare()
         print('Concentration: %f' % concentration.predict(feature_vector))
-        #app.concentration = concentration.predict(feature_vector)
+        app.concentration = concentration.predict(feature_vector)
         concentration.release()
-
+        '''
         # calc relaxation
         relaxation_params = BrainFlowModelParams(BrainFlowMetrics.RELAXATION.value, BrainFlowClassifiers.REGRESSION.value)
         relaxation = MLModel(relaxation_params)
@@ -122,6 +123,7 @@ def main():
         print('Relaxation: %f' % relaxation.predict(feature_vector))
         app.concentration = relaxation.predict(feature_vector)
         relaxation.release()
+        
 
 
 if __name__ == "__main__":
